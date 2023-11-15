@@ -78,6 +78,12 @@ npx prisma db push
 
 ```
 
+### Seed DB with categories
+```shell
+node scripts/seed.ts
+
+```
+
 ### Start the app
 
 ```shell
