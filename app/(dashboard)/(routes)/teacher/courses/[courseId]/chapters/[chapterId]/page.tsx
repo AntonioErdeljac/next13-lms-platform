@@ -22,7 +22,7 @@ const ChapterIdPage = async ({
   const { userId } = auth();
 
   if (!userId) {
-    return redirect("/");
+    return redirect("/dashboard");
   }
 
   const chapter = await db.chapter.findUnique({
@@ -35,7 +35,7 @@ const ChapterIdPage = async ({
     },
   });
   if (!chapter) {
-    return redirect("/")
+    return redirect("/dashboard")
   }
 
   const requiredFields = [

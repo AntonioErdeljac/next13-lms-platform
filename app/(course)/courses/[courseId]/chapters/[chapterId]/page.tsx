@@ -7,7 +7,7 @@ import { Banner } from "@/components/banner";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
 
-import { VideoPlayer } from "./_components/video-player";
+// import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
 
@@ -19,7 +19,7 @@ const ChapterIdPage = async ({
   const { userId } = auth();
   
   if (!userId) {
-    return redirect("/");
+    return redirect("/dashboard");
   } 
 
   const {
@@ -37,7 +37,7 @@ const ChapterIdPage = async ({
   });
 
   if (!chapter || !course) {
-    return redirect("/")
+    return redirect("/dashboard")
   }
 
 
@@ -60,7 +60,14 @@ const ChapterIdPage = async ({
       )}
       <div className="flex flex-col max-w-4xl mx-auto pb-20">
         <div className="p-4">
-          <VideoPlayer
+          {`implement a new video player here to: ${chapter.videoLinkUrl} https://github.com/cookpete/react-player`}
+          <video
+          className="w-full"
+          controls
+          >
+            <source src={chapter.videoLinkUrl!} type="video/mp4" />
+          </video>
+          {/* <VideoPlayer
             chapterId={params.chapterId}
             title={chapter.title}
             courseId={params.courseId}
@@ -68,7 +75,7 @@ const ChapterIdPage = async ({
             playbackId={muxData?.playbackId!}
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
-          />
+          /> */}
         </div>
         <div>
           <div className="p-4 flex flex-col md:flex-row items-center justify-between">
