@@ -10,8 +10,9 @@ import { Banner } from "@/components/banner";
 import { ChapterTitleForm } from "./_components/chapter-title-form";
 import { ChapterDescriptionForm } from "./_components/chapter-description-form";
 import { ChapterAccessForm } from "./_components/chapter-access-form";
-import { ChapterVideoForm } from "./_components/chapter-video-form";
+// import { ChapterVideoForm } from "./_components/chapter-video-form"; // disables the video upload form
 import { ChapterActions } from "./_components/chapter-actions";
+import { ChapterVideoLinkForm } from "./_components/chapter-video-link-form";
 
 const ChapterIdPage = async ({
   params
@@ -33,7 +34,6 @@ const ChapterIdPage = async ({
       muxData: true,
     },
   });
-
   if (!chapter) {
     return redirect("/")
   }
@@ -41,7 +41,7 @@ const ChapterIdPage = async ({
   const requiredFields = [
     chapter.title,
     chapter.description,
-    chapter.videoUrl,
+    chapter.videoLinkUrl,
   ];
 
   const totalFields = requiredFields.length;
@@ -128,11 +128,16 @@ const ChapterIdPage = async ({
                 Add a video
               </h2>
             </div>
-            <ChapterVideoForm
+            <ChapterVideoLinkForm 
               initialData={chapter}
               chapterId={params.chapterId}
               courseId={params.courseId}
             />
+            {/* <ChapterVideoForm
+              initialData={chapter}
+              chapterId={params.chapterId}
+              courseId={params.courseId}
+            /> */}
           </div>
         </div>
       </div>
