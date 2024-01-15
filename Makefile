@@ -3,3 +3,6 @@ default:
 
 reset-db:
 	npx prisma migrate reset
+
+m:
+	npx prisma migrate dev
