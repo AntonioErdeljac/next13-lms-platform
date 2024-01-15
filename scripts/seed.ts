@@ -4,6 +4,11 @@ const database = new PrismaClient();
 
 async function main() {
   try {
+    const r = await database.category.deleteMany();
+  } catch (error) {
+    console.log("Error deleting categories", error);
+  }
+  try {
     const r = await database.category.createMany({
       data: [
         { 
@@ -24,7 +29,8 @@ async function main() {
     console.log(`Success: ${r.count} categories created.`);
   } catch (error) {
     console.log("Error seeding the database categories", error);
-  } finally {
+  } 
+  finally {
     await database.$disconnect();
   }
 }
