@@ -7,9 +7,9 @@ import { Banner } from "@/components/banner";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
 
-// import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
+import { RPVideoPlayer } from "./_components/rp-video-player";
 
 const ChapterIdPage = async ({
   params
@@ -25,7 +25,6 @@ const ChapterIdPage = async ({
   const {
     chapter,
     course,
-    muxData,
     attachments,
     nextChapter,
     userProgress,
@@ -60,22 +59,15 @@ const ChapterIdPage = async ({
       )}
       <div className="flex flex-col max-w-4xl mx-auto pb-20">
         <div className="p-4">
-          {`implement a new video player here to: ${chapter.videoLinkUrl} https://github.com/cookpete/react-player`}
-          <video
-          className="w-full"
-          controls
-          >
-            <source src={chapter.videoLinkUrl!} type="video/mp4" />
-          </video>
-          {/* <VideoPlayer
-            chapterId={params.chapterId}
-            title={chapter.title}
+          <RPVideoPlayer 
+            videoLinkUrl={chapter.videoLinkUrl!}
             courseId={params.courseId}
+            chapterId={params.chapterId}
             nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!}
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
-          /> */}
+            title={chapter.title}
+          />
         </div>
         <div>
           <div className="p-4 flex flex-col md:flex-row items-center justify-between">

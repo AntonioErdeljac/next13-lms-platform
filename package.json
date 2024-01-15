@@ -48,6 +48,7 @@
     "react-hook-form": "^7.46.1",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
+    "react-player": "^2.14.1",
     "react-quill": "^2.0.0",
     "recharts": "^2.8.0",
     "stripe": "^13.6.0",
