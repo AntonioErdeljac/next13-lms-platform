@@ -18,11 +18,7 @@ async function main() {
         { 
           id: "838b5a2d-a2e3-4e9b-a5c9-3d992c59a775",
           name: "NodeJS" 
-        },
-        { 
-          id: "15a44bad-d1a9-442b-a81f-87a51fa3c924",
-          name: "Django" 
-        },
+        }
       ],
       skipDuplicates: true,
     });
