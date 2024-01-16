@@ -17,4 +17,11 @@ export const {
 } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [Google],
+  callbacks: {
+    async session({session, user}) {
+      if (user && session.user) {
+        session.user.userId = user.id
+      }
+      return session
+  }},
 });
