@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { isTeacher } from "@/lib/teacher";
 
 import { SearchInput } from "./search-input";
-import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
 
 export const NavbarRoutes = () => {
