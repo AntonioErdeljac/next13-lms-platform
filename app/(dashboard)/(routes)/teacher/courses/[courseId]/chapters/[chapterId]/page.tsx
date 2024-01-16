@@ -51,6 +51,14 @@ const ChapterIdPage = async ({
 
   const isComplete = requiredFields.every(Boolean);
 
+  const chapterVideoLinkFormProps = {
+    initialData: {
+      videoLinkUrl: chapter.videoLinkUrl!,
+    },
+    chapterId: params.chapterId,
+    courseId: params.courseId,
+  }
+
   return (
     <>
       {!chapter.isPublished && (
@@ -128,11 +136,7 @@ const ChapterIdPage = async ({
                 Add a video
               </h2>
             </div>
-            <ChapterVideoLinkForm 
-              initialData={chapter}
-              chapterId={params.chapterId}
-              courseId={params.courseId}
-            />
+            <ChapterVideoLinkForm {...chapterVideoLinkFormProps}/>
             {/* <ChapterVideoForm
               initialData={chapter}
               chapterId={params.chapterId}
