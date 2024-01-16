@@ -16,7 +16,7 @@ export const AuthBtnGroup = async () => {
         <LogoutBtn />
       ) : (
         <div className="flex flex-col gap-2">
-          <GoogleLoginBtn /> <LineLoginBtn />
+          <GoogleLoginBtn />
         </div>
       )}
     </>

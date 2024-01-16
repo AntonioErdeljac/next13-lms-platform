@@ -7,7 +7,7 @@ export const GoogleLoginBtn = () => {
   return (
     <Button
       onClick={() => {
-        signIn("google", { callbackUrl: "/" });
+        signIn("google", { callbackUrl: "/dashboard" });
       }}
     >
       Login with Google
