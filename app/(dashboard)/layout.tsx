@@ -1,11 +1,15 @@
+import { auth } from "@/auth";
 import { Navbar } from "./_components/navbar";
 import { Sidebar } from "./_components/sidebar";
+import { redirect } from "next/navigation";
 
-const DashboardLayout = ({
+const DashboardLayout = async ({
   children
 }: {
   children: React.ReactNode;
 }) => {
+  const session = await auth();
+  if (!session) redirect("/login")
   return ( 
     <div className="h-full">
       <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-50">
