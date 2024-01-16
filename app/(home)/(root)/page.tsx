@@ -1,10 +1,12 @@
-import { redirect } from "next/navigation"
+import Link from "next/link";
 
-export default function Page() {
-  redirect("/dashboard")
+export default async function Page() {
   return (
     <main>
       <h1>Home</h1>
+      <Link href={"/dashboard"}>
+      Dashboard
+      </Link>
     </main>
   )
 }
