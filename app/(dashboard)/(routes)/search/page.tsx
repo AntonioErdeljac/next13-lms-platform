@@ -19,7 +19,7 @@ const SearchPage = async ({
   searchParams
 }: SearchPageProps) => {
   const session = await auth();
-  const email = session!.user!.email!
+  const userId = session!.user!.userId!
 
   const categories = await db.category.findMany({
     orderBy: {
@@ -28,7 +28,7 @@ const SearchPage = async ({
   });
 
   const courses = await getCourses({
-    userId: email,
+    userId,
     ...searchParams,
   });
 

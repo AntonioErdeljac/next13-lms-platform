@@ -1,21 +1,16 @@
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-
 import { db } from "@/lib/db";
 
 import { DataTable } from "./_components/data-table";
 import { columns } from "./_components/columns";
+import { auth } from "@/auth";
 
 const CoursesPage = async () => {
-  const { userId } = auth();
-
-  if (!userId) {
-    return redirect("/dashboard");
-  }
+  const session = await auth();
+  const userId = session!.user!.userId!;
 
   const courses = await db.course.findMany({
     where: {
-      userId,
+      userId: userId,
     },
     orderBy: {
       createdAt: "desc",

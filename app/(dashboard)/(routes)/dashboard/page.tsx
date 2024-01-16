@@ -10,14 +10,10 @@ import { auth } from "@/auth";
 export default async function Dashboard() {
   const session = await auth();
 
-  if (!session) {
-    return redirect("/dashboard");
-  }
-
   const {
     completedCourses,
     coursesInProgress
-  } = await getDashboardCourses(session.user!.email!);
+  } = await getDashboardCourses(session!.user!.userId!);
 
   return (
     <div className="p-6 space-y-4">

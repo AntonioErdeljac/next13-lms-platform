@@ -21,12 +21,12 @@ export const CourseSidebar = async ({
   progressCount,
 }: CourseSidebarProps) => {
   const session = await auth();
-  const email = session!.user!.email!;
+  const userId = session!.user!.userId!;
 
   const purchase = await db.purchase.findUnique({
     where: {
       userId_courseId: {
-        userId: email,
+       userId,
         courseId: course.id,
       }
     }
