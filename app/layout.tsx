@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ToastProvider } from '@/components/providers/toaster-provider'
 import { ConfettiProvider } from '@/components/providers/confetti-provider'
+import { SessionProvider } from 'next-auth/react'
+import { Providers } from '@/providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <Providers>
       <html lang="en">
         <body className={inter.className}>
           <ConfettiProvider />
@@ -24,5 +27,6 @@ export default function RootLayout({
           {children}
         </body>
       </html>
+    </Providers>
   )
 }
