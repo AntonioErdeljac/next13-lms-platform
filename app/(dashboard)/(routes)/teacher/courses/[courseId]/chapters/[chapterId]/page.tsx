@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
@@ -13,29 +12,27 @@ import { ChapterAccessForm } from "./_components/chapter-access-form";
 // import { ChapterVideoForm } from "./_components/chapter-video-form"; // disables the video upload form
 import { ChapterActions } from "./_components/chapter-actions";
 import { ChapterVideoLinkForm } from "./_components/chapter-video-link-form";
+import { auth } from "@/auth";
 
 const ChapterIdPage = async ({
-  params
+  params,
 }: {
-  params: { courseId: string; chapterId: string }
+  params: { courseId: string; chapterId: string };
 }) => {
-  const { userId } = auth();
-
-  if (!userId) {
-    return redirect("/dashboard");
-  }
+  const session = await auth();
+  const userId = session!.user!.id;
 
   const chapter = await db.chapter.findUnique({
     where: {
       id: params.chapterId,
-      courseId: params.courseId
+      courseId: params.courseId,
     },
     include: {
       muxData: true,
     },
   });
   if (!chapter) {
-    return redirect("/dashboard")
+    return redirect("/dashboard");
   }
 
   const requiredFields = [
@@ -57,7 +54,7 @@ const ChapterIdPage = async ({
     },
     chapterId: params.chapterId,
     courseId: params.courseId,
-  }
+  };
 
   return (
     <>
@@ -79,9 +76,7 @@ const ChapterIdPage = async ({
             </Link>
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col gap-y-2">
-                <h1 className="text-2xl font-medium">
-                  Chapter Creation
-                </h1>
+                <h1 className="text-2xl font-medium">Chapter Creation</h1>
                 <span className="text-sm text-slate-700">
                   Complete all fields {completionText}
                 </span>
@@ -100,9 +95,7 @@ const ChapterIdPage = async ({
             <div>
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl">
-                  Customize your chapter
-                </h2>
+                <h2 className="text-xl">Customize your chapter</h2>
               </div>
               <ChapterTitleForm
                 initialData={chapter}
@@ -118,9 +111,7 @@ const ChapterIdPage = async ({
             <div>
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={Eye} />
-                <h2 className="text-xl">
-                  Access Settings
-                </h2>
+                <h2 className="text-xl">Access Settings</h2>
               </div>
               <ChapterAccessForm
                 initialData={chapter}
@@ -132,11 +123,9 @@ const ChapterIdPage = async ({
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={Video} />
-              <h2 className="text-xl">
-                Add a video
-              </h2>
+              <h2 className="text-xl">Add a video</h2>
             </div>
-            <ChapterVideoLinkForm {...chapterVideoLinkFormProps}/>
+            <ChapterVideoLinkForm {...chapterVideoLinkFormProps} />
             {/* <ChapterVideoForm
               initialData={chapter}
               chapterId={params.chapterId}
@@ -146,7 +135,7 @@ const ChapterIdPage = async ({
         </div>
       </div>
     </>
-   );
-}
- 
+  );
+};
+
 export default ChapterIdPage;

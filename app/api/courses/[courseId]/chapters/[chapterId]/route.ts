@@ -1,8 +1,8 @@
 // import Mux from "@mux/mux-node";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { auth } from "@/auth";
 
 // disables mux
 // const { Video } = new Mux(
@@ -15,7 +15,8 @@ export async function DELETE(
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const session = await auth();
+    const userId = session!.user!.id;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -25,7 +26,7 @@ export async function DELETE(
       where: {
         id: params.courseId,
         userId,
-      }
+      },
     });
 
     if (!ownCourse) {
@@ -36,7 +37,7 @@ export async function DELETE(
       where: {
         id: params.chapterId,
         courseId: params.courseId,
-      }
+      },
     });
 
     if (!chapter) {
@@ -63,15 +64,15 @@ export async function DELETE(
 
     const deletedChapter = await db.chapter.delete({
       where: {
-        id: params.chapterId
-      }
+        id: params.chapterId,
+      },
     });
 
     const publishedChaptersInCourse = await db.chapter.findMany({
       where: {
         courseId: params.courseId,
         isPublished: true,
-      }
+      },
     });
 
     if (!publishedChaptersInCourse.length) {
@@ -81,7 +82,7 @@ export async function DELETE(
         },
         data: {
           isPublished: false,
-        }
+        },
       });
     }
 
@@ -107,8 +108,8 @@ export async function PATCH(
     const ownCourse = await db.course.findUnique({
       where: {
         id: params.courseId,
-        userId
-      }
+        userId,
+      },
     });
 
     if (!ownCourse) {
@@ -121,7 +122,7 @@ export async function PATCH(
       },
       data: {
         ...values,
-      }
+      },
     });
 
     // disables mux
@@ -159,6 +160,6 @@ export async function PATCH(
     return NextResponse.json(chapter);
   } catch (error) {
     console.log("[COURSES_CHAPTER_ID]", error);
-    return new NextResponse("Internal Error", { status: 500 }); 
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

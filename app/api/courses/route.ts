@@ -1,14 +1,13 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { isTeacher } from "@/lib/teacher";
+import { auth } from "@/auth";
 
-export async function POST(
-  req: Request,
-) {
+export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const session = await auth();
+    const userId = session!.user!.id;
     const { title } = await req.json();
 
     if (!userId || !isTeacher(userId)) {
@@ -19,7 +18,7 @@ export async function POST(
       data: {
         userId,
         title,
-      }
+      },
     });
 
     return NextResponse.json(course);
