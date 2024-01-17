@@ -13,7 +13,7 @@ db-push:
 db-deploy:
 	npx prisma migrate deploy
 # Generate prisma client
-db-generate
+db-generate:
 	npx prisma generate
 # Drop local database tables
 drop-tables:
