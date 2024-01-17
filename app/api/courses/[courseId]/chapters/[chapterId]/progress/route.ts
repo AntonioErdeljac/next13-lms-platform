@@ -12,7 +12,7 @@ export async function PUT(
     const userId = session!.user!.id;
     const { isCompleted } = await req.json();
 
-    if (!userId) {
+    if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

@@ -12,7 +12,7 @@ export async function POST(
     const userId = session!.user!.id;
     const { url } = await req.json();
 
-    if (!userId) {
+    if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

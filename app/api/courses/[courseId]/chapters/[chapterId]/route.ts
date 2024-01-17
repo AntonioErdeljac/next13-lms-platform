@@ -18,7 +18,7 @@ export async function DELETE(
     const session = await auth();
     const userId = session!.user!.id;
 
-    if (!userId) {
+    if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -98,10 +98,11 @@ export async function PATCH(
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const session = await auth();
+    const userId = session!.user!.id;
     const { isPublished, ...values } = await req.json();
 
-    if (!userId) {
+    if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

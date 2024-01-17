@@ -11,7 +11,7 @@ export async function PATCH(
     const session = await auth();
     const userId = session!.user!.id;
 
-    if (!userId) {
+    if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
