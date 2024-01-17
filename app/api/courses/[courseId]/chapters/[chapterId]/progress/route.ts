@@ -9,12 +9,12 @@ export async function PUT(
 ) {
   try {
     const session = await auth();
-    const userId = session!.user!.id;
     const { isCompleted } = await req.json();
 
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    const userId = session.user.id;
 
     const userProgress = await db.userProgress.upsert({
       where: {

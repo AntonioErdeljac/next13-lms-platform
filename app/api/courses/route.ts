@@ -7,8 +7,8 @@ import { auth } from "@/auth";
 export async function POST(req: Request) {
   try {
     const session = await auth();
-    const userId = session!.user!.id;
     const { title } = await req.json();
+    const userId = session?.user?.id;
 
     if (!session || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     const course = await db.course.create({
       data: {
-        userId,
+        userId: userId as string,
         title,
       },
     });

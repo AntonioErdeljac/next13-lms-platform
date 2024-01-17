@@ -22,7 +22,8 @@ import { auth } from "@/auth";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const session = await auth();
-  const userId = session!.user!.id;
+  if (!session) redirect("/");
+  const userId = session.user.id;
 
   const course = await db.course.findUnique({
     where: {

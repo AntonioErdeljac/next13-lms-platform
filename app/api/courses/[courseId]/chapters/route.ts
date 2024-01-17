@@ -9,12 +9,12 @@ export async function POST(
 ) {
   try {
     const session = await auth();
-    const userId = session!.user!.id;
     const { title } = await req.json();
 
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    const userId = session.user.id;
 
     const courseOwner = await db.course.findUnique({
       where: {

@@ -16,11 +16,11 @@ export async function DELETE(
 ) {
   try {
     const session = await auth();
-    const userId = session!.user!.id;
 
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    const userId = session.user.id;
 
     const ownCourse = await db.course.findUnique({
       where: {
@@ -99,12 +99,12 @@ export async function PATCH(
 ) {
   try {
     const session = await auth();
-    const userId = session!.user!.id;
     const { isPublished, ...values } = await req.json();
 
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    const userId = session.user.id;
 
     const ownCourse = await db.course.findUnique({
       where: {
