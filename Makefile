@@ -22,3 +22,6 @@ drop-tables:
 # Seed db with data
 seed:
 	cd scripts && node seed.ts
+# Prettier
+prettier:
+	npx prettier --write .
