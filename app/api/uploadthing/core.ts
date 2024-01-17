@@ -10,7 +10,7 @@ const handleAuth = async () => {
   const isAuthorized = isTeacher(session?.user.email);
 
   if (!session || !isAuthorized) throw new Error("Unauthorized");
-  return { userId: session.user.id };
+  return { userId: session.user.userId };
 };
 
 export const ourFileRouter = {

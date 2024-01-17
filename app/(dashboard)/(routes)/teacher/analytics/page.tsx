@@ -9,7 +9,7 @@ import { auth } from "@/auth";
 const AnalyticsPage = async () => {
   const session = await auth();
   if (!session) redirect("/");
-  const userId = session.user.id;
+  const userId = session.user.userId;
 
   const { data, totalRevenue, totalSales } = await getAnalytics(userId);
 

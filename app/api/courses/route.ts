@@ -8,15 +8,15 @@ export async function POST(req: Request) {
   try {
     const session = await auth();
     const { title } = await req.json();
-    const userId = session?.user?.id;
+    const email = session?.user?.email;
 
-    if (!session || !isTeacher(userId)) {
+    if (!session || !isTeacher(email)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
+    const userId = session.user.userId;
     const course = await db.course.create({
       data: {
-        userId: userId as string,
+        userId,
         title,
       },
     });

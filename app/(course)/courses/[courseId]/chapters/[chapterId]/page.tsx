@@ -18,7 +18,7 @@ const ChapterIdPage = async ({
 }) => {
   const session = await auth();
   if (!session) redirect("/");
-  const userId = session.user.id;
+  const userId = session.user.userId;
 
   const { chapter, course, attachments, nextChapter, userProgress, purchase } =
     await getChapter({

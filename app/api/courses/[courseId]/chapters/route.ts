@@ -14,7 +14,7 @@ export async function POST(
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const userId = session.user.id;
+    const userId = session.user.userId;
 
     const courseOwner = await db.course.findUnique({
       where: {

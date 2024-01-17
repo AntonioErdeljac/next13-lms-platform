@@ -14,7 +14,7 @@ export async function PUT(
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const userId = session.user.id;
+    const userId = session.user.userId;
 
     const userProgress = await db.userProgress.upsert({
       where: {

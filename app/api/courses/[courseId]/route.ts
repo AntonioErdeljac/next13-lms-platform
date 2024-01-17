@@ -20,7 +20,7 @@ export async function DELETE(
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const userId = session.user.id;
+    const userId = session.user.userId;
 
     const course = await db.course.findUnique({
       where: {
@@ -72,7 +72,7 @@ export async function PATCH(
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const userId = session.user.id;
+    const userId = session.user.userId;
 
     const course = await db.course.update({
       where: {
