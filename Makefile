@@ -19,3 +19,6 @@ db-generate:
 drop-tables:
 	psql "dbname=postgres host=db port=5432 user=postgres password=postgres" -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;" ;\
 	exit 0;
+# Seed db with data
+seed:
+	cd scripts && node seed.ts
