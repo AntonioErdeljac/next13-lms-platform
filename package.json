@@ -57,7 +57,8 @@
     "typescript": "5.2.2",
     "uploadthing": "^5.5.3",
     "zod": "^3.22.2",
-    "zustand": "^4.4.1"
+    "zustand": "^4.4.1",
+    "next-pwa": "5.6.0"
   },
   "devDependencies": {
     "prisma": "^5.11.0"
